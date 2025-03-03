@@ -1,0 +1,88 @@
+body {
+    background-image: url("./img/backgrounds/01-elden-ring.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body > a {
+    padding: 1%;
+    font-size: 3vh;
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+}
+
+.nav {
+    margin-top: 7vw;
+    place-self: center;
+    justify-content: center;
+    align-items: center;
+    height: 3vw;
+    width: 50vw;
+    background-color: #504c4c;
+    border-radius: 50px;
+    color: white;
+    display: grid;
+    grid-template-columns:3fr 94fr 3fr ;
+    padding: 0 15px;
+    min-height: 57px;
+    min-width: 330px;
+    gap: 1vw;
+
+}
+.nav svg{
+    min-height: 17px;
+    height:1vw ;
+    width: auto;
+    border: none;
+    background-color: transparent;
+}
+.nav > input, .nav > button{
+    font-size: 100%;
+    border: none;
+    background-color: transparent;
+    color: white;
+    outline: none;
+}
+
+.grid {
+    margin-top: 8vw;
+    gap: 0.6vw;
+    display: grid;
+    place-self: center;
+    grid-template-columns: repeat(auto-fit, minmax(var(--minwidth), 1fr));
+    grid-row-gap: 2vh;
+    align-items: center;
+    max-width: 54vw;
+}
+
+.grid > a {
+    box-sizing:content-box;
+    text-align: center;
+    border-radius: 15%;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 3%;
+    
+}
+
+.grid > a:hover {
+    background-color: #504c4cb6;
+}
+.grid > a > img{
+    padding: 5%;
+    width: 80%;
+    height: 80%;
+    border-radius: 15%;
+}
