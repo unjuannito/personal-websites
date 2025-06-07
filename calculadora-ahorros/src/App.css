@@ -1,0 +1,60 @@
+
+/* Contenedor principal */
+#root {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Encabezados centrados */
+h1, h2 {
+  text-align: center;
+}
+
+/* Contenedor de información de inversión */
+.investment-info {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Estilos para botones */
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Botón para agregar etapa */
+.add-stage-btn {
+  background-color: #03dac6;
+  color: #000;
+}
+
+/* Botón para calcular */
+.calculate-btn {
+  background-color: #bb86fc;
+  color: #000;
+}
+
+/* Botón para eliminar etapa */
+.remove-btn {
+  background-color: #cf6679;
+  color: #fff;
+  margin-top: 10px;
+}
+
+/* Agrupación de botones */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+

@@ -1,0 +1,65 @@
+.searchBar {
+    margin-top: 7vw;
+    place-self: center;
+    justify-content: center;
+    align-items: center;
+    height: 3vw;
+    width: 50vw;
+    background-color: #504c4c;
+    border-radius: 50px;
+    color: white;
+    display: grid;
+    grid-template-columns:3fr 94fr 3fr ;
+    padding: 0 15px;
+    min-height: 57px;
+    min-width: 330px;
+    gap: 1vw;
+}
+
+.searchBar img{
+    cursor:pointer;
+    min-height: 17px;
+    height:1vw ;
+    width: auto;
+    border: none;
+    background-color: transparent;
+}
+.searchBar > button, .searchBar input{
+    font-size: 100%;
+    border: none;
+    background-color: transparent;
+    color: white;
+    outline: none;
+}
+
+/* Estilos para las sugerencias de búsqueda */
+.search-suggestions {
+    position: absolute;
+    width: 50vw;
+    min-width: 330px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #504c4c;
+    border-radius: 10px;
+    margin-top: 5px;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-suggestions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-suggestions li {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white;
+    text-align: left;
+}
+
+.search-suggestions li:hover,
+.search-suggestions li.highlighted {
+    background-color: #666363;
+}

@@ -1,0 +1,105 @@
+/* Contenedor de accesos directos */
+.shortcutsManager {
+    width: 100%;
+    gap: 0.6vw;
+    display: grid;
+    place-self: center;
+    grid-template-columns: repeat(7 , minmax(120px, 200px));
+    grid-row-gap: 2vh;
+    align-items: space;
+    width: 54vw;
+    min-width: 400px;
+    padding: 8rem;
+}
+
+.shortcutsManager > div:hover {
+    opacity: 0.8;
+}
+
+.shortcutsManager > div:active {
+    opacity: 0.6;
+}
+
+
+
+/* Acceso directo */
+.shortcut {
+    position: relative;
+    box-sizing:content-box;
+    text-align: center;
+    border-radius: 15%;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 20px 5px;
+
+    transition: transform 0.2s, opacity 0.2s;
+    cursor: pointer;
+}
+
+.shortcut:hover {
+/* .shortcut { */
+    background-color: #504c4cb6;
+}
+.shortcut img {
+    margin: 0px 10px;
+    width: 70%;
+    height: auto;
+    object-fit:contain;
+    aspect-ratio: 1 / 1;
+    border-radius: 8%;
+}
+
+.shortcut h3 {
+    margin: 5px 0;
+    position: relative;
+    bottom: 0;
+    max-width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 93%
+}
+
+.shortcut .editShortcut {
+    padding: 5px;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: auto;
+    border-radius: 50%;
+    z-index: 0;
+}
+.shortcut .editShortcut:hover {
+    opacity: 1;
+    background-color: #aaa4a4a4;
+}
+
+
+
+/* Movimiento de accesos directos */
+.shortcut.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+/* Desplegable */
+.addShortcutDialog[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem 8rem;
+    border-radius: 7%;
+}
+
+
+.hidden {
+    opacity: 0;
+}
+
+.hidden:hover {
+    opacity: 1;
+}

@@ -1,0 +1,63 @@
+/* Contenedor de etapas con separación */
+.stages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Estilo para cada etapa */
+.stage {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Primera etapa más destacada */
+.stage-first {
+    border: 2px solid #bb86fc;
+    font-size: 1.1em;
+}
+
+.stage label {
+    display: grid;
+    grid-template-columns:  1fr max-content;
+    margin: 10px;
+    /* gap: 10px; */
+}
+.stage label span {
+    grid-column: 1 / -1;
+    display: inline-flex;
+}
+
+.stage label input,
+.stage label button {
+    background-color: #121212;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    margin: 0;
+    margin-top: 0.5em;
+}
+.stage label button {
+    margin-left: 10px;
+}
+
+.stage label button img {
+    width: 1rem;
+    height: auto;
+    padding: 0 5px;
+    margin: 0;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.dates label {
+    display: flex;
+    flex-direction: column;
+}

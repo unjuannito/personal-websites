@@ -1,0 +1,53 @@
+/* Resultados */
+.results {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    gap: 15px;
+}
+
+.results section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 120px;
+    background-color: #2c2c2c;
+    padding: 15px;
+    border-radius: 8px;
+    color: #ffffff;
+}
+
+.results section h3 {
+    margin: 5px;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.results section select {
+    padding: 3px;
+    font-size: 0.8em;
+    margin: 0 10%;
+    width: 80%;
+}
+
+.results main {
+    flex: 2;
+    /* poner las cosas centradas horizontalmente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #2c2c2c;
+    padding: 15px;
+    border-radius: 8px;
+    color: #ffffff;
+}
+
+.results main h2,
+.results main h3 {
+    margin: 5px;
+    padding: 0;
+}

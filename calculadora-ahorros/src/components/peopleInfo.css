@@ -1,0 +1,27 @@
+.savings-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.savings-info label {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    margin-bottom: 5px;
+    width: 100%;
+
+}
+.savings-info span {
+    margin: 0 15px;
+    margin-bottom: 2px;
+}
+.savings-info input {
+    min-width: 80%;
+    margin: 0 10px;
+    margin-bottom: 8px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+}
