@@ -62,7 +62,7 @@ export default function Results() {
             const totalExpense = monthExpensesTotal + anualExpensesTotal;
             const annualNetIncomeTotal = stage.annualNetIncome * (years + months / 12);
             const totalSavings = annualNetIncomeTotal - totalExpense;
-            quantity = parseInt(person.initialSavings ? person.initialSavings : 0) + totalSavings;
+            quantity += parseInt(person.initialSavings ? person.initialSavings : 0) + totalSavings;
         });
         return quantity; // Return the total savings rounded to 2 decimal places
     }
