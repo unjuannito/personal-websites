@@ -8,8 +8,9 @@
 /* Estilo para cada etapa */
 .stage {
     background-color: #1e1e1e;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 8px;
+    gap: 2rem;
 
     display: flex;
     flex-direction: column;
@@ -21,10 +22,21 @@
     font-size: 1.1em;
 }
 
+.stage section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    gap: 1rem;
+}
+
 .stage label {
-    display: grid;
-    grid-template-columns:  1fr max-content;
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* margin: 10px; */
+    /* max-width: 100%; */
+    width:auto;
     /* gap: 10px; */
 }
 .stage label span {
@@ -53,11 +65,6 @@
     margin: 0;
 }
 
-.dates {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-.dates label {
-    display: flex;
-    flex-direction: column;
+h2 {
+    margin: 0;
 }

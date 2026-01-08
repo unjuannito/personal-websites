@@ -36,6 +36,14 @@ export default function usePeople() {
         setPeople(newPeople);
     }
 
+    const deletePerson = (identifier) => {
+        if (!identifier) return
+        console.log(people)
+        console.log(identifier)
+        const newPeople = people.filter(person => { person.identifier !== identifier });
+        setPeople(newPeople);
+    }
+
     const modifyPerson = (identifier, field, value) => {
         const newPeople = [...people];
         const person = newPeople.find(p => p.identifier === identifier);
@@ -183,6 +191,7 @@ export default function usePeople() {
         addStage,
         removeStage,
         getStage,
-        getPerson
+        getPerson,
+        deletePerson
     }
 }

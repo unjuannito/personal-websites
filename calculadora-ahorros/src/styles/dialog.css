@@ -1,0 +1,97 @@
+/* ExpenseCalculatorDialog.css */
+dialog[open] {
+  background-color: #1e1e1e;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /*  */
+  justify-content: center;
+  align-items: center;
+  /*  */
+  padding: 1.5rem;
+  border-radius: 8px;
+  /* width: 70%; */
+  /* max-width: 800px; */
+  border: 1px solid #bb86fc;
+
+  display: flex;
+  flex-direction: column;
+}
+dialog[open] main {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+/* Deshabilitar las barras de desplazamiento */
+.slider {
+  aspect-ratio: 10 / 10;
+  width: 350px;
+  /* position: relative; */
+  padding: 1rem;
+  display: flex;
+  gap: 50px;
+  overflow: scroll; /* Esto deshabilita las barras de desplazamiento */
+  scroll-snap-type: x mandatory;
+}
+
+/* Botones de desplazamiento (si el navegador es compatible con ::scroll-button) */
+.slider::scroll-button {
+  border: 0;
+  font-size: 2rem;
+  background: none;
+  color: rgb(0 0 0 / 0.7);
+  cursor: pointer;
+}
+
+.slider::scroll-button:hover,
+.slider::scroll-button:focus {
+  color: rgb(0 0 0 / 1);
+}
+
+.slider::scroll-button:active {
+  translate: 10px 1px;
+}
+
+.slider::scroll-button:disabled {
+  color: rgb(0 0 0 / 0.2);
+  cursor: unset;
+}
+
+/* Definición de los botones de desplazamiento a izquierda y derecha */
+.slider::scroll-button(left) {
+  content: "◄";
+  position: absolute;
+  left: 1rem;
+}
+
+.slider::scroll-button(right) {
+  content: "►";
+  position: absolute;
+  right: 1rem;
+
+}
+
+/* Estilo para las secciones dentro del slider */
+.slider section {
+  width: 350px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  object-fit: cover;
+  scroll-snap-align: center;
+}
+
+/* Estilo para los elementos dentro del slider (input, select, etc.) */
+.slider label, .slider input, .slider select, .slider h3 {
+  margin: 1rem;
+  width: 300px;
+}
+
+.hideScroll {
+  overflow: hidden !important; /* Ocultar las barras de desplazamiento */
+}

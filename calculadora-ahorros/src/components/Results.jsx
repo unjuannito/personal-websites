@@ -1,5 +1,5 @@
 import { use, useEffect, useState } from "react"
-import "./results.css"
+import "../styles/results.css"
 import usePeople from "../hooks/usePeople"
 
 export default function Results() {

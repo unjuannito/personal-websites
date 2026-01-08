@@ -22,27 +22,29 @@ export default function Stage({ identifier, firstStage, minDate }) {
                 />
 
             </label>
-            <label>
-                <span>Gastos Mensuales:</span>
-                <input
-                    min={0}
-                    type="number"
-                    value={stage.monthlyExpenses}
-                    onChange={e => modifyStage(identifier, 'monthlyExpenses', e.target.value)}
-                />
+            <section>
+                <label>
+                    <span>Gastos Mensuales:</span>
+                    <input
+                        min={0}
+                        type="number"
+                        value={stage.monthlyExpenses}
+                        onChange={e => modifyStage(identifier, 'monthlyExpenses', e.target.value)}
+                    />
 
-            </label>
-            <label>
-                <span>Gastos Anuales:</span>
-                <input
-                    min={0}
-                    type="number"
-                    value={stage.annualExpenses}
-                    onChange={e => modifyStage(identifier, 'annualExpenses', e.target.value)}
-                />
+                </label>
+                <label>
+                    <span>Gastos Anuales:</span>
+                    <input
+                        min={0}
+                        type="number"
+                        value={stage.annualExpenses}
+                        onChange={e => modifyStage(identifier, 'annualExpenses', e.target.value)}
+                    />
 
-            </label>
-            <section className="dates">
+                </label>
+            </section>
+            <section>
                 <label>Fecha de inicio:
                     <input
                         type="month"

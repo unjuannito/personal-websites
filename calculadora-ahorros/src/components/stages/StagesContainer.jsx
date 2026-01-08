@@ -1,17 +1,18 @@
 import { useState } from 'react'
-import './stageContainer.css'
+import '../../styles/stageContainer.css'
 import Stage from './Stage'
 import usePeople from '../../hooks/usePeople'
 export default function StagesContainer({ identifier }) {
+    if (!identifier) return;
+
     const { people, addStage, getPerson } = usePeople()
     const person = getPerson(identifier)
-    const currentStages = person.stages
+    const currentStages = person?.stages
 
     //tratar datos
     const handleStageChange = (stageIndex, field, value) => {
         modifyStage(selectedPerson, stageIndex, field, value)
     }
-
     return (
         <>
             <div className="stages-container">

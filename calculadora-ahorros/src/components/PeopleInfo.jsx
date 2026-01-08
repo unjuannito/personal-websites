@@ -1,5 +1,5 @@
 import usePeople from '../hooks/usePeople';
-import './peopleInfo.css'
+import '../styles/peopleInfo.css'
 export default function PeopleInfo({ identifier }) {
     const { getPerson, modifyPerson } = usePeople()
     const person = getPerson(identifier);
@@ -9,7 +9,7 @@ export default function PeopleInfo({ identifier }) {
                 <span>Nombre:</span>
                 <input
                     type="text"
-                    value={person.name}
+                    value={person?.name}
                     onChange={(e) => modifyPerson(identifier, 'name', e.target.value)}
                 />
             </label>
@@ -17,7 +17,7 @@ export default function PeopleInfo({ identifier }) {
                 <span>Nacimiento:</span>
                 <input
                     type="month"
-                    value={person.birthDate}
+                    value={person?.birthDate}
                     onChange={(e) => modifyPerson(identifier, 'birthDate', e.target.value)}
                 />
             </label>
@@ -25,7 +25,7 @@ export default function PeopleInfo({ identifier }) {
                 <span>Ahorro Inicial:</span>
                 <input
                     type="number"
-                    value={person.initialSavings}
+                    value={person?.initialSavings}
                     onChange={(e) => modifyPerson(identifier, 'initialSavings', e.target.value)}
                 />
 
