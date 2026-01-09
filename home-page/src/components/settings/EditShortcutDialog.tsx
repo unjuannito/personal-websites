@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { ShortcutData } from '../../types';
 import DialogComponent from '../DialogComponent';
 import { fetchIcon } from '../../utils/iconFetcher';
+import { fetchWebName } from '../../utils/nameFetcher';
 import imagePlaceholder from '../../assets/image.svg';
 
 interface EditShortcutDialogProps {
@@ -43,8 +44,19 @@ export default function EditShortcutDialog({ isOpen, onClose, shortcut, onSave }
     }
   }, []);
 
-  const handleUrlBlur = () => {
-    if (!editedShortcut.imageURl && editedShortcut.url) {
+  const handleUrlBlur = async () => {
+    if (!editedShortcut.url) return;
+
+    // Si el nombre está vacío, intentar obtenerlo
+    if (!editedShortcut.name) {
+      const fetchedName = await fetchWebName(editedShortcut.url);
+      if (fetchedName) {
+        setEditedShortcut(prev => ({ ...prev, name: fetchedName }));
+      }
+    }
+
+    // Si la imagen está vacía, intentar obtener el icono
+    if (!editedShortcut.imageURl) {
       handleFetchIcon(editedShortcut.url);
     }
   };
@@ -102,10 +114,18 @@ export default function EditShortcutDialog({ isOpen, onClose, shortcut, onSave }
                 className="flex-1 bg-black/20 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors"
               />
               <button
-                onClick={() => handleFetchIcon(editedShortcut.url)}
+                onClick={async () => {
+                  if (!editedShortcut.name) {
+                    const fetchedName = await fetchWebName(editedShortcut.url);
+                    if (fetchedName) {
+                      setEditedShortcut(prev => ({ ...prev, name: fetchedName }));
+                    }
+                  }
+                  handleFetchIcon(editedShortcut.url);
+                }}
                 disabled={isLoadingIcon || !editedShortcut.url}
                 className="bg-white/5 hover:bg-white/10 disabled:opacity-50 p-2 rounded-xl transition-colors shrink-0"
-                title="Search icon"
+                title="Search icon and name"
               >
                 <img src={imagePlaceholder} alt="Search" className="w-5 h-5 opacity-60" />
               </button>

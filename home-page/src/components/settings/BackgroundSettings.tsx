@@ -24,7 +24,7 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
   const colorInputRef = useRef<HTMLInputElement>(null);
 
   const isCustomColor = background.startsWith('#') && !presetColors.includes(background);
-  
+
   const saveWallpaperOrder = (wallpapers: CustomWallpaper[]) => {
     const order = wallpapers.map(wp => wp.id);
     localStorage.setItem('wallpaperOrder', JSON.stringify(order));
@@ -69,7 +69,7 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
       await saveWallpaper(id, file);
       lastId = id;
     }
-    
+
     await loadCustomWallpapers();
     if (lastId) {
       onBgChange(`custom:${lastId}`);
@@ -99,7 +99,7 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
   const handleDelete = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     await deleteWallpaper(id);
-    
+
     // Remove from saved order
     const savedOrder = localStorage.getItem('wallpaperOrder');
     if (savedOrder) {
@@ -120,17 +120,16 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
   };
 
   return (
-    <div className="p-4 md:p-8 space-y-8">
-      <section className="space-y-4">
-        <h3 className="text-sm font-semibold text-white/60 uppercase tracking-wider">Colors</h3>
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+    <main className="flex flex-col h-[800px] overflow-hidden">
+      <section className="px-12 pt-8 pb-4 space-y-4">
+        <h3 className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Colors</h3>
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3">
           {presetColors.map(color => (
             <button
               key={color}
               onClick={() => onBgChange(color)}
-              className={`h-10 rounded-xl border-2 transition-all hover:scale-105 ${
-                background === color ? 'border-blue-500 scale-105' : 'border-white/10'
-              }`}
+              className={`h-10 rounded-xl border-2 transition-all hover:scale-105 ${background === color ? 'border-blue-500 scale-105' : 'border-white/10'
+                }`}
               style={{ backgroundColor: color }}
             />
           ))}
@@ -138,9 +137,8 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
           {/* Custom Color Selector integrated into the grid */}
           <button
             onClick={() => colorInputRef.current?.click()}
-            className={`h-10 rounded-xl border-2 transition-all hover:scale-105 relative overflow-hidden flex items-center justify-center ${
-              isCustomColor ? 'border-blue-500 scale-105' : 'border-white/10'
-            }`}
+            className={`h-10 rounded-xl border-2 transition-all hover:scale-105 relative overflow-hidden flex items-center justify-center ${isCustomColor ? 'border-blue-500 scale-105' : 'border-white/10'
+              }`}
             style={{ backgroundColor: isCustomColor ? background : '#333' }}
           >
             <div className="absolute inset-0 opacity-20 bg-gradient-to-br from-white to-transparent" />
@@ -158,55 +156,55 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
         </div>
       </section>
 
-      <section className="space-y-4">
-        <h3 className="text-sm font-semibold text-white/60 uppercase tracking-wider">Custom Wallpapers</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {/* Upload Button / Drop Zone */}
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            className={`aspect-video bg-white/5 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center gap-2 transition-all group ${
-              isDragging 
-                ? 'border-blue-500 bg-blue-500/10 scale-[1.02]' 
-                : 'border-white/10 hover:bg-white/10 hover:border-white/20'
-            }`}
-          >
-            <img 
-              src={imageIcon} 
-              alt="Upload" 
-              className={`w-8 h-8 transition-all ${isDragging ? 'scale-110 opacity-100' : 'opacity-40 group-hover:opacity-100'}`} 
-            />
-            <span className={`text-xs font-medium transition-colors ${isDragging ? 'text-blue-400' : 'text-white/40 group-hover:text-white/80'}`}>
-              {isDragging ? 'Drop to upload' : 'Upload or Drag Image'}
-            </span>
-          </button>
+      <section className="flex-1 flex flex-col min-h-0">
+        <h3 className="px-12 pt-4 pb-6 text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Custom Wallpapers</h3>
+        <div id="background-scroll-container" className="flex-1 overflow-y-auto px-12 pb-10 custom-scrollbar">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            {/* Upload Button / Drop Zone */}
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`aspect-video bg-white/5 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center gap-2 transition-all group ${isDragging
+                  ? 'border-blue-500 bg-blue-500/10 scale-[1.02]'
+                  : 'border-white/10 hover:bg-white/10 hover:border-white/20'
+                }`}
+            >
+              <img
+                src={imageIcon}
+                alt="Upload"
+                className={`w-8 h-8 transition-all ${isDragging ? 'scale-110 opacity-100' : 'opacity-40 group-hover:opacity-100'}`}
+              />
+              <span className={`text-xs font-medium transition-colors ${isDragging ? 'text-blue-400' : 'text-white/40 group-hover:text-white/80'}`}>
+                {isDragging ? 'Drop to upload' : 'Upload or Drag Image'}
+              </span>
+            </button>
 
-          {/* Custom Gallery */}
-          <SortableContainer
-            items={customWallpapers}
-            onReorder={handleReorder}
-            className="contents"
-            portalContainer={dialogRef?.current}
-            renderItem={(wp, _, isDragging) => (
-              <div
-                onClick={() => !isDragging && onBgChange(`custom:${wp.id}`)}
-                className={`relative aspect-video rounded-2xl overflow-hidden cursor-pointer border-2 transition-all hover:scale-[1.02] group ${
-                  background === `custom:${wp.id}` ? 'border-blue-500' : 'border-transparent'
-                } ${isDragging ? 'opacity-50 scale-105' : ''}`}
-              >
-                <img src={wp.url} alt="Custom" className="w-full h-full object-cover pointer-events-none" />
-                <button
-                  onClick={(e) => handleDelete(e, wp.id)}
-                  className="absolute top-2 right-2 p-2 bg-black/40 hover:bg-red-500 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 z-10"
+            {/* Custom Gallery */}
+            <SortableContainer
+              items={customWallpapers}
+              onReorder={handleReorder}
+              className="contents"
+              portalContainer={dialogRef?.current}
+              renderItem={(wp, _, isDragging) => (
+                <section
+                  onClick={() => !isDragging && onBgChange(`custom:${wp.id}`)}
+                  className={`relative aspect-video rounded-2xl overflow-hidden cursor-pointer border-2 transition-all hover:scale-[1.02] group ${background === `custom:${wp.id}` ? 'border-blue-500' : 'border-transparent'
+                    } ${isDragging ? 'opacity-50 scale-105' : ''}`}
                 >
-                  <img src={xmarkIcon} alt="Delete" className="w-3 h-3 invert" />
-                </button>
-                <div className={`absolute inset-0 bg-blue-500/10 transition-opacity ${background === `custom:${wp.id}` ? 'opacity-100' : 'opacity-0'}`} />
-              </div>
-            )}
-          />
+                  <img src={wp.url} alt="Custom" className="w-full h-full object-cover pointer-events-none" />
+                  <button
+                    onClick={(e) => handleDelete(e, wp.id)}
+                    className="absolute top-2 right-2 p-2 bg-black/40 hover:bg-red-500 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 z-10"
+                  >
+                    <img src={xmarkIcon} alt="Delete" className="w-3 h-3 invert" />
+                  </button>
+                  <div className={`absolute inset-0 bg-blue-500/10 transition-opacity ${background === `custom:${wp.id}` ? 'opacity-100' : 'opacity-0'}`} />
+                </section>
+              )}
+            />
+          </div>
         </div>
         <input
           type="file"
@@ -217,6 +215,6 @@ export default function BackgroundSettings({ background, onBgChange, dialogRef }
           className="hidden"
         />
       </section>
-    </div>
+    </main>
   );
 }

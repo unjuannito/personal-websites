@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Shortcut from './Shortcut';
 import SortableContainer from './dnd/SortableContainer';
 import EditShortcutDialog from './settings/EditShortcutDialog';
-import plusIcon from '../assets/plus.svg';
 import type { ShortcutData, LayoutConfig } from '../types';
+import NewShortcut from './NewShortCut';
 
 export default function ShorcutsNav() {
-  const [shortcuts, setShortcuts] = useState<ShortcutData[]>([]);
+  const [shortcuts, setShortcuts] = useState<ShortcutData[]>([{ "name": "Youtube", "url": "https://www.youtube.com/", "imageURl": "https://www.google.com/s2/favicons?domain=https://www.youtube.com//&sz=128" }, { "name": "Twitch", "url": "https://www.twitch.tv/", "imageURl": "https://www.google.com/s2/favicons?domain=https://www.twitch.tv//&sz=128" }, { "name": "PC Components", "url": "https://www.pccomponentes.com/", "imageURl": "https://www.google.com/s2/favicons?domain=https://www.pccomponentes.com//&sz=128" }, { "name": "Pivi Games", "url": "https://pivigames.blog/", "imageURl": "https://www.google.com/s2/favicons?domain=https://pivigames.blog//&sz=128" }, { "name": "Prime Video", "url": "https://www.primevideo.com/offers/nonprimehomepage/ref=dv_web_force_root", "imageURl": "https://www.google.com/s2/favicons?domain=https://www.primevideo.com/offers/nonprimehomepage/ref=dv_web_force_root/&sz=128" }, { "name": "AnimeV1", "url": "https://animeav1.com/", "imageURl": "https://animeav1.com/img/logo-dark.svg" }, { "name": "Chat GPT", "url": "https://chatgpt.com/", "imageURl": "https://www.google.com/s2/favicons?domain=https://chatgpt.com//&sz=128" }, { "name": "Gmail", "url": "https://mail.google.com/mail/u/0/", "imageURl": "https://www.google.com/s2/favicons?domain=https://mail.google.com/mail/u/0//&sz=128" }, { "name": "Drive", "url": "https://drive.google.com/drive/my-drive", "imageURl": "https://www.google.com/s2/favicons?domain=https://drive.google.com/drive/my-drive/&sz=128" }, { "name": "Immich", "url": "https://immich.juacac.ydns.eu/", "imageURl": "https://immich.juacac.ydns.eu/manifest-icon-192.maskable.png" }, { "name": "Docs", "url": "https://docs.google.com/document/u/0/", "imageURl": "https://www.gstatic.com/images/branding/product/2x/docs_2020q4_48dp.png" }, { "name": "Keep", "url": "https://keep.google.com/", "imageURl": "https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png" }, { "name": "Calendar", "url": "https://calendar.google.com/calendar/u/0/r", "imageURl": "https://www.google.com/s2/favicons?domain=https://calendar.google.com/calendar/u/0/r/&sz=128" }, { "name": "Mega", "url": "https://mega.nz/es/", "imageURl": "https://www.google.com/s2/favicons?domain=https://mega.nz/es//&sz=128" }]);
   const [editingIndex, setEditingIndex] = useState<number | 'new' | null>(null);
   const [showBlur, setShowBlur] = useState(true);
   const [layout, setLayout] = useState<LayoutConfig>({
@@ -15,6 +15,8 @@ export default function ShorcutsNav() {
     mobile: { rows: 4, cols: 2 }
   });
   const [currentLayoutType, setCurrentLayoutType] = useState<'pc' | 'tablet' | 'mobile'>('pc');
+  const navRef = useRef<HTMLElement>(null);
+  const [effectiveCols, setEffectiveCols] = useState(7);
 
   const loadData = () => {
     const storedShortcuts = localStorage.getItem('shortcuts');
@@ -37,7 +39,7 @@ export default function ShorcutsNav() {
       const width = window.innerWidth;
       if (width >= 1024) {
         setCurrentLayoutType('pc');
-      } else if (width >= 768) {
+      } else if (width >= 600) {
         setCurrentLayoutType('tablet');
       } else {
         setCurrentLayoutType('mobile');
@@ -53,6 +55,61 @@ export default function ShorcutsNav() {
       window.removeEventListener('storage-update', loadData);
     };
   }, []);
+
+  useEffect(() => {
+    const calculateLayout = () => {
+      if (!navRef.current) return;
+
+      const parent = navRef.current.parentElement;
+      if (!parent) return;
+
+      const parentWidth = parent.clientWidth;
+
+      // Get padding of nav
+      const style = window.getComputedStyle(navRef.current);
+      const paddingLeft = parseFloat(style.paddingLeft) || 0;
+      const paddingRight = parseFloat(style.paddingRight) || 0;
+
+      const availableWidth = parentWidth - paddingLeft - paddingRight;
+
+      // Determine item width based on currentLayoutType
+      let itemSize = 80; // mobile default
+      let itemPadding = 8;
+
+      if (currentLayoutType === 'pc') {
+        itemSize = 128;
+        itemPadding = 16;
+      } else if (currentLayoutType === 'tablet') {
+        itemSize = 96;
+        itemPadding = 8;
+      }
+
+      const itemTotalWidth = itemSize + (itemPadding * 2);
+      const gap = 8; // --shortcut-gap
+
+      const targetCols = layout[currentLayoutType].cols;
+
+      // Calculate max columns that fit
+      // N * (w + gap) - gap <= available
+      const maxFit = Math.floor((availableWidth + gap) / (itemTotalWidth + gap));
+
+      const finalCols = Math.min(targetCols, Math.max(1, maxFit));
+      setEffectiveCols(finalCols);
+    };
+
+    calculateLayout();
+    window.addEventListener('resize', calculateLayout);
+
+    const observer = new ResizeObserver(calculateLayout);
+    if (navRef.current?.parentElement) {
+      observer.observe(navRef.current.parentElement);
+    }
+
+    return () => {
+      window.removeEventListener('resize', calculateLayout);
+      observer.disconnect();
+    };
+  }, [currentLayoutType, layout]);
 
   const handleReorder = (newShortcuts: ShortcutData[]) => {
     setShortcuts(newShortcuts);
@@ -81,6 +138,9 @@ export default function ShorcutsNav() {
     window.dispatchEvent(new Event('storage-update'));
   };
 
+  useEffect(() =>{
+
+  }, [layout])
   // Generar clases de grid dinámicas
   const gridStyle = {
     '--cols-pc': layout.pc.cols,
@@ -89,21 +149,32 @@ export default function ShorcutsNav() {
     '--rows-tablet': layout.tablet.rows,
     '--cols-mobile': layout.mobile.cols,
     '--rows-mobile': layout.mobile.rows,
+    '--current-cols': effectiveCols,
+    '--current-rows': layout[currentLayoutType].rows,
+    gap: 'var(--shortcut-gap, 16px)',
+    display: 'grid',
+    gridTemplateColumns: `repeat(var(--current-cols), max-content)`,
+    justifyContent: 'center',
+    justifyItems: 'center',
   } as React.CSSProperties;
 
-  const maxItems = layout[currentLayoutType].rows * layout[currentLayoutType].cols;
-  const currentItems = shortcuts.slice(0, maxItems);
-  const hasSpace = shortcuts.length < maxItems;
+  const maxItems = layout[currentLayoutType].rows * effectiveCols;
+  const visibleShortcuts = shortcuts.slice(0, maxItems);
 
   return (
-    <nav
-      className={`p-6 bg-black/20 rounded-3xl min-h-[250px] transition-all duration-300 ${showBlur ? 'backdrop-blur-sm' : ''}`}
-      style={gridStyle}
-    >
-      <div className="grid grid-cols-[repeat(var(--cols-mobile),minmax(0,1fr))] grid-rows-[repeat(var(--rows-mobile),minmax(0,1fr))] md:grid-cols-[repeat(var(--cols-tablet),minmax(0,1fr))] md:grid-rows-[repeat(var(--rows-tablet),minmax(0,1fr))] lg:grid-cols-[repeat(var(--cols-pc),minmax(0,1fr))] lg:grid-rows-[repeat(var(--rows-pc),minmax(0,1fr))] gap-4">
+    <>
+      <nav
+        ref={navRef}
+        className={`p-4 md:p-6 bg-black/20 rounded-3xl transition-all duration-300 ${showBlur ? 'backdrop-blur-sm' : ''}`}
+        style={gridStyle}
+      >
         <SortableContainer
-          items={currentItems}
-          onReorder={handleReorder}
+          items={visibleShortcuts}
+          onReorder={(newVisible) => {
+            // Combinar los reordenados visibles con los que están ocultos
+            const hiddenShortcuts = shortcuts.slice(maxItems);
+            handleReorder([...newVisible, ...hiddenShortcuts]);
+          }}
           className="contents"
           renderItem={(shortcut, index, isDragging) => (
             <Shortcut
@@ -117,27 +188,38 @@ export default function ShorcutsNav() {
           )}
         />
 
-        {hasSpace && (
+        {/* Add new shortcut button only if there's space */}
+        {shortcuts.length < maxItems && (
+          <NewShortcut onClick={() => setEditingIndex('new')} />
+        )}
+
+        <>
+          {/* <div className="flex items-center justify-center">
           <button
             onClick={() => setEditingIndex('new')}
-            className="flex flex-col items-center justify-center bg-white/5 border-2 border-dashed border-white/10 rounded-2xl gap-2 hover:bg-white/10 hover:border-white/20 transition-all group min-h-[120px]"
+            style={{ width: '100%', aspectRatio: '1/1', minHeight: 'unset' }}
+            className="flex flex-col items-center justify-center bg-white/5 border-2 border-dashed border-white/10 rounded-2xl gap-1 hover:bg-white/10 hover:border-white/20 transition-all group"
           >
-            <div className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-full group-hover:scale-110 transition-transform">
-              <img src={plusIcon} alt="Add new" className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity invert" />
+            <div
+              style={{ width: 'calc(var(--shortcut-icon-size) * 0.8)', height: 'calc(var(--shortcut-icon-size) * 0.8)' }}
+              className="flex items-center justify-center bg-white/5 rounded-full group-hover:scale-110 transition-transform"
+            >
+              <img src={plusIcon} alt="Add new" className="w-1/2 h-1/2 opacity-40 group-hover:opacity-100 transition-opacity invert" />
             </div>
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider group-hover:text-white/80 transition-colors">
-              Add Shortcut
+            <span className="text-[8px] md:text-[10px] font-bold text-white/40 uppercase tracking-wider group-hover:text-white/80 transition-colors text-center px-1">
+              Add
             </span>
           </button>
-        )}
-      </div>
+        </div> */}
 
+        </>
+      </nav>
       <EditShortcutDialog
         isOpen={editingIndex !== null}
         onClose={() => setEditingIndex(null)}
         shortcut={editingIndex !== null && editingIndex !== 'new' ? shortcuts[editingIndex] : null}
         onSave={(updated) => editingIndex !== null && handleEditShortcut(editingIndex, updated)}
       />
-    </nav>
+    </>
   );
 }

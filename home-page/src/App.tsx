@@ -30,20 +30,86 @@ function App() {
     }
   }
 
+  const [isSearchVisible, setIsSearchVisible] = useState(true)
+  const [isShortcutsVisible, setIsShortcutsVisible] = useState(true)
+
   useEffect(() => {
+    const updateVH = () => {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+
+      // Ajustar tamaños de shortcuts según el alto disponible
+      const availableHeight = window.innerHeight
+      const searchEl = document.querySelector('[data-id="search-bar"]')
+      const searchHeight = searchEl ? searchEl.getBoundingClientRect().height : 0
+      const padding = 120 // Espaciado total (p-8, gap-12, etc.)
+      const shortcutAreaHeight = availableHeight - searchHeight - padding
+
+      // Obtener configuración de layout para calcular filas
+      const storedLayout = localStorage.getItem('layoutConfig')
+      const layout = storedLayout ? JSON.parse(storedLayout) : {
+        pc: { rows: 2, cols: 7 },
+        tablet: { rows: 4, cols: 4 },
+        mobile: { rows: 4, cols: 2 }
+      }
+    }
+
+    const handleStorageUpdate = () => {
+      updateBackground()
+      updateVH()
+    }
+
     updateBackground()
-    window.addEventListener('storage-update', updateBackground)
-    return () => window.removeEventListener('storage-update', updateBackground)
+    window.addEventListener('storage-update', handleStorageUpdate)
+
+    updateVH()
+    window.addEventListener('resize', updateVH)
+
+    // Detección automática de visibilidad
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.getAttribute('data-id') === 'search-bar') {
+            setIsSearchVisible(entry.isIntersecting)
+          }
+          if (entry.target.getAttribute('data-id') === 'shortcuts-nav') {
+            setIsShortcutsVisible(entry.isIntersecting)
+          }
+        })
+      },
+      { threshold: [0, 1] }
+    )
+
+    const searchEl = document.querySelector('[data-id="search-bar"]')
+    const shortcutsEl = document.querySelector('[data-id="shortcuts-nav"]')
+
+    if (searchEl) observer.observe(searchEl)
+    if (shortcutsEl) observer.observe(shortcutsEl)
+
+    return () => {
+      window.removeEventListener('storage-update', handleStorageUpdate)
+      window.removeEventListener('resize', updateVH)
+      observer.disconnect()
+    }
   }, [])
 
   return (
     <main
-      className="min-h-screen w-full flex flex-col items-center justify-center gap-12 text-white p-8 transition-all duration-500"
-      style={bgStyle}
+      className={`min-h-screen w-full flex flex-col items-center justify-center gap-6 md:gap-12 text-white px-4 md:px-8 transition-all duration-500 overflow-hidden ${!isSearchVisible || !isShortcutsVisible ? 'justify-start' : 'justify-center'
+        }`}
+      style={{
+        ...bgStyle,
+        minHeight: 'calc(var(--vh, 1vh) * 100)',
+        height: 'calc(var(--vh, 1vh) * 100)'
+      }}
     >
-      <div className="w-full max-w-md md:max-w-2xl lg:max-w-7xl flex flex-col items-center gap-12">
-        <SearchBar />
-        <ShorcutsNav />
+      <div className="w-full max-w-md md:max-w-2xl lg:max-w-7xl flex flex-col items-center gap-6 md:gap-12 max-h-full py-4 scroll-smooth">
+        {/* <div data-id="search-bar" className="w-full flex justify-center shrink-0"> */}
+          <SearchBar />
+        {/* </div> */}
+        <div data-id="shortcuts-nav" className="w-full overflow-y-auto scrollbar-hide max-h-full  ">
+          <ShorcutsNav />
+        </div>
       </div>
 
       <button

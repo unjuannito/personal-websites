@@ -10,9 +10,9 @@ interface ShortcutProps {
   onDelete?: () => void;
 }
 
-export default function Shortcut({ 
-  name, 
-  url, 
+export default function Shortcut({
+  name,
+  url,
   imageURl,
   isDragging,
   onEdit,
@@ -46,7 +46,7 @@ export default function Shortcut({
     { label: 'Abrir', onClick: () => window.location.href = url },
     { label: 'Abrir en nueva pestaña', onClick: () => window.open(url, '_blank') },
     { label: 'Copiar dirección de enlace', onClick: handleCopyLink },
-    { label: 'Separator', onClick: () => {}, isSeparator: true },
+    { label: 'Separator', onClick: () => { }, isSeparator: true },
     { label: 'Editar Shortcut', onClick: () => onEdit?.() },
     { label: 'Eliminar Shortcut', onClick: () => onDelete?.(), className: 'text-red-400 hover:bg-red-500/10' },
   ];
@@ -64,21 +64,22 @@ export default function Shortcut({
           }
         }}
         onContextMenu={handleContextMenu}
-        className={`flex flex-col items-center justify-center p-3 md:p-4 rounded-2xl hover:bg-white/15 transition-colors duration-200 group w-full h-full ${
-          isDragging ? 'cursor-grabbing' : 'cursor-pointer'
-        }`}
+        className={`flex flex-col items-center justify-center p-[var(--shortcut-padding)] rounded-2xl hover:bg-white/15 transition-all duration-200 group
+                    ${isDragging ? 'cursor-grabbing' : 'cursor-pointer'}`}
       >
-        <div className="w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 mb-2 flex items-center justify-center bg-white/5 rounded-2xl group-hover:bg-white/10 transition-colors duration-200 pointer-events-none">
+        <div
+          className="p-[var(--shortcut-icon-padding)] flex items-center justify-center bg-white/5 rounded-2xl group-hover:bg-white/10 transition-colors duration-200 pointer-events-none"
+        >
           <img
             src={imageURl.trim().replace(/^`|`$/g, '')}
             alt={name}
-            className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl object-contain"
+            className="rounded-xl object-contain transition-all duration-200 w-[var(--shortcut-icon-size)] h-[var(--shortcut-icon-size)]"
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'https://www.google.com/s2/favicons?domain=' + url + '&sz=128';
             }}
           />
         </div>
-        <span className="text-[10px] md:text-xs lg:text-sm text-white/80 text-center truncate w-full group-hover:text-white pointer-events-none px-1">
+        <span className="text-[10px] md:text-xs lg:text-sm text-white/80 text-center truncate w-full group-hover:text-white pointer-events-none h-[var(--shortcut-text-height)] flex items-center justify-center">
           {name}
         </span>
       </a>

@@ -101,7 +101,7 @@ export default function SettingsDialog({ isOpen, onClose }: SettingsDialogProps)
   };
 
   return (
-    <DialogComponent isOpen={isOpen} onClose={onClose} className="max-w-2xl" dialogRef={dialogRef}>
+    <DialogComponent isOpen={isOpen} onClose={onClose} dialogRef={dialogRef}>
       {/* Header Tabs */}
       <header className="flex bg-zinc-900 rounded-none">
         {(['general', 'links', 'background'] as const).map(tab => (
@@ -116,7 +116,6 @@ export default function SettingsDialog({ isOpen, onClose }: SettingsDialogProps)
       </header>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto min-h-0">
         {activeTab === 'general' && (
           <GeneralSettings
             layout={layout}
@@ -144,7 +143,6 @@ export default function SettingsDialog({ isOpen, onClose }: SettingsDialogProps)
             dialogRef={dialogRef}
           />
         )}
-      </div>
 
       {/* Footer */}
       <menu className="p-6 border-t border-white/10 flex justify-end shrink-0">

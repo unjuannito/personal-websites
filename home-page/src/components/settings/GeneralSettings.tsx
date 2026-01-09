@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import type { LayoutConfig, SearchSettings } from '../../types';
 
 interface GeneralSettingsProps {
@@ -20,20 +21,57 @@ const AI_ENGINES = [
   { name: 'Google AI', url: 'https://www.google.com/ai?q=' },
 ];
 
-export default function GeneralSettings({ 
-  layout, 
-  onLayoutChange, 
-  searchSettings, 
-  onSearchSettingsChange 
+function GridInput({ value, onChange }: { value: number, onChange: (val: number) => void }) {
+  const [localValue, setLocalValue] = useState(value.toString());
+
+  useEffect(() => {
+    setLocalValue(value.toString());
+  }, [value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setLocalValue(val);
+    
+    const parsed = parseInt(val);
+    if (!isNaN(parsed) && parsed > 0) {
+      onChange(parsed);
+    }
+  };
+
+  const handleBlur = () => {
+    const parsed = parseInt(localValue);
+    if (isNaN(parsed) || parsed <= 0) {
+      setLocalValue(value.toString());
+    }
+  };
+
+  return (
+    <input
+      type="number"
+      min="1"
+      step="1"
+      value={localValue}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      className="w-16 bg-black/20 border border-white/10 rounded-lg px-2 py-1 text-center"
+    />
+  );
+}
+
+export default function GeneralSettings({
+  layout,
+  onLayoutChange,
+  searchSettings,
+  onSearchSettingsChange
 }: GeneralSettingsProps) {
   return (
-    <main className="p-4 md:p-8 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start content-start">
+    <main className="p-4 md:p-8 overflow-y-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start content-start custom-scrollbar">
       <section className="flex flex-col gap-4">
         <h3 className="text-lg font-semibold">Search & AI</h3>
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between bg-white/5 p-4 rounded-2xl">
             <span className="font-medium">Search Engine</span>
-            <select 
+            <select
               value={searchSettings.searchEngine}
               onChange={(e) => onSearchSettingsChange({ ...searchSettings, searchEngine: e.target.value })}
               className="bg-black/20 border border-white/10 rounded-lg px-3 py-1 text-sm outline-none"
@@ -45,7 +83,7 @@ export default function GeneralSettings({
           </div>
           <div className="flex items-center justify-between bg-white/5 p-4 rounded-2xl">
             <span className="font-medium">AI Engine</span>
-            <select 
+            <select
               value={searchSettings.aiEngine}
               onChange={(e) => onSearchSettingsChange({ ...searchSettings, aiEngine: e.target.value })}
               className="bg-black/20 border border-white/10 rounded-lg px-3 py-1 text-sm outline-none"
@@ -76,20 +114,16 @@ export default function GeneralSettings({
               <div className="flex gap-4">
                 <label className="flex flex-col items-center">
                   <span className="text-[10px] text-white/40 uppercase mb-1">Max Cols</span>
-                  <input
-                    type="number"
+                  <GridInput
                     value={layout[device].cols}
-                    onChange={e => onLayoutChange({ ...layout, [device]: { ...layout[device], cols: parseInt(e.target.value) || 1 } })}
-                    className="w-16 bg-black/20 border border-white/10 rounded-lg px-2 py-1 text-center"
+                    onChange={val => onLayoutChange({ ...layout, [device]: { ...layout[device], cols: val } })}
                   />
                 </label>
                 <label className="flex flex-col items-center">
                   <span className="text-[10px] text-white/40 uppercase mb-1">Max Rows</span>
-                  <input
-                    type="number"
+                  <GridInput
                     value={layout[device].rows}
-                    onChange={e => onLayoutChange({ ...layout, [device]: { ...layout[device], rows: parseInt(e.target.value) || 1 } })}
-                    className="w-16 bg-black/20 border border-white/10 rounded-lg px-2 py-1 text-center"
+                    onChange={val => onLayoutChange({ ...layout, [device]: { ...layout[device], rows: val } })}
                   />
                 </label>
               </div>
