@@ -37,21 +37,6 @@ function App() {
     const updateVH = () => {
       const vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${vh}px`)
-
-      // Ajustar tamaños de shortcuts según el alto disponible
-      const availableHeight = window.innerHeight
-      const searchEl = document.querySelector('[data-id="search-bar"]')
-      const searchHeight = searchEl ? searchEl.getBoundingClientRect().height : 0
-      const padding = 120 // Espaciado total (p-8, gap-12, etc.)
-      const shortcutAreaHeight = availableHeight - searchHeight - padding
-
-      // Obtener configuración de layout para calcular filas
-      const storedLayout = localStorage.getItem('layoutConfig')
-      const layout = storedLayout ? JSON.parse(storedLayout) : {
-        pc: { rows: 2, cols: 7 },
-        tablet: { rows: 4, cols: 4 },
-        mobile: { rows: 4, cols: 2 }
-      }
     }
 
     const handleStorageUpdate = () => {
@@ -107,7 +92,7 @@ function App() {
         {/* <div data-id="search-bar" className="w-full flex justify-center shrink-0"> */}
           <SearchBar />
         {/* </div> */}
-        <div data-id="shortcuts-nav" className="w-full overflow-y-auto scrollbar-hide max-h-full  ">
+        <div data-id="shortcuts-nav" className="w-full overflow-y-auto scrollbar-hide max-h-full px-8 md:px-4 lg:px-8">
           <ShorcutsNav />
         </div>
       </div>
