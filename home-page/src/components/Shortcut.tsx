@@ -55,7 +55,6 @@ export default function Shortcut({
     <>
       <a
         href={url}
-        target="_blank"
         rel="noopener noreferrer"
         draggable="false"
         onClick={(e) => {
