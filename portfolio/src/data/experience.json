@@ -1,0 +1,52 @@
+{
+  "en": [
+    {
+      "company": "BBVA Technology",
+      "logo": "bbva_technology_en_europa_logo.jpg",
+      "type": "Full-time",
+      "location_type": "Hybrid",
+      "roles": [
+        {
+          "role": "Salesforce Developer",
+          "startDate": "2024-07-01",
+          "endDate": "present",
+          "location": "Madrid, Community of Madrid, Spain",
+          "skills": ["Agile methodologies", "Salesforce.com Development"]
+        },
+        {
+          "role": "Salesforce Developer",
+          "subRole": "Intern Student",
+          "startDate": "2024-03-01",
+          "endDate": "2024-06-30",
+          "location": "Madrid, Community of Madrid, Spain",
+          "skills": ["Agile methodologies", "Salesforce.com Development"]
+        }
+      ]
+    }
+  ],
+  "es": [
+    {
+      "company": "BBVA Technology",
+      "logo": "bbva_technology_en_europa_logo.jpg",
+      "type": "Jornada completa",
+      "location_type": "Híbrido",
+      "roles": [
+        {
+          "role": "Desarrollador en Salesforce",
+          "startDate": "2024-07-01",
+          "endDate": "present",
+          "location": "Madrid, Comunidad de Madrid, España",
+          "skills": ["Metodologías ágiles", "Desarrollo Salesforce.com"]
+        },
+        {
+          "role": "Desarrollador en Salesforce",
+          "subRole": "Estudiante en prácticas",
+          "startDate": "2024-03-01",
+          "endDate": "2024-06-30",
+          "location": "Madrid, Comunidad de Madrid, España",
+          "skills": ["Metodologías ágiles", "Desarrollo Salesforce.com"]
+        }
+      ]
+    }
+  ]
+}

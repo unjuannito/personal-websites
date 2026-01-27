@@ -1,0 +1,30 @@
+{
+  "en": [
+    {
+      "name": "Salesforce Certified Platform Administrator",
+      "issuer": "Salesforce",
+      "date": "Jan 2024",
+      "logo": "platform-admin.png"
+    },
+    {
+      "name": "Salesforce Certified Platform App Builder",
+      "issuer": "Salesforce",
+      "date": "Jan 2024",
+      "logo": "platfor-app-builder.png"
+    }
+  ],
+  "es": [
+    {
+      "name": "Salesforce Certified Platform Administrator",
+      "issuer": "Salesforce",
+      "date": "Ene 2024",
+      "logo": "platform-admin.png"
+    },
+    {
+      "name": "Salesforce Certified Platform App Builder",
+      "issuer": "Salesforce",
+      "date": "Ene 2024",
+      "logo": "platfor-app-builder.png"
+    }
+  ]
+}

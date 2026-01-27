@@ -1,0 +1,26 @@
+{
+  "en": [
+    {
+      "school": "IES Virgen de la Paz",
+      "degree": "Higher Technician in Web Applications Development",
+      "period": "Sept. 2022 - Jun. 2024"
+    },
+    {
+      "school": "IES Aldebarán",
+      "degree": "Baccalaureate in Sciences",
+      "period": "Sept. 2020 - Jun. 2022"
+    }
+  ],
+  "es": [
+    {
+      "school": "IES Virgen de la Paz",
+      "degree": "Técnico Superior en Desarrollo de Aplicaciones Web",
+      "period": "sept. 2022 - jun. 2024"
+    },
+    {
+      "school": "IES Aldebarán",
+      "degree": "Bachillerato, Ciencias",
+      "period": "sept. 2020 - jun. 2022"
+    }
+  ]
+}

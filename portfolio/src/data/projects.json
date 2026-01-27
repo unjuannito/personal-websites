@@ -1,37 +1,62 @@
 {
-    "en": [
-        {
-            "title": "PHP INTRO PROJECTS",
-            "desc": "PHP INTRO PROJECTS",
-            "link": "http://not.found"
-        },
-        {
-            "title": "Sushi Web",
-            "desc": "Sushi Web",
-            "link": "https://juacac.ydns.eu/sushi-counter/"
-        },
-        {
-            "title": "Home Page",
-            "desc": "Home Page",
-            "link": "https://juacac.ydns.eu/home-page/"
-        }
-    ],
-    "es": [
-        {
-            "title": "Proyectos de iniciaccion de php",
-            "desc": "Proyectos de iniciaccion de php",
-            "link": "http://not.found"
-        },
-        {
-            "title": "Web de sushi",
-            "desc": "Web de sushi",
-            "link": "https://juacac.ydns.eu/sushi-counter/"
-        },
-        {
-            "title": "Pagina de inicio",
-            "desc": "Pagina de inicio",
-            "link": "https://juacac.ydns.eu/home-page/"
-        }
-
-    ]
+  "en": [
+    {
+      "title": "PHP Intro Projects",
+      "desc": "Collection of projects developed during my Web Development Technician studies to learn PHP from scratch to more advanced concepts. Covers fundamentals, backend logic, form handling, sessions, and basic CRUD operations.",
+      "technologies": ["PHP", "MySQL"],
+      "github": "https://github.com/unjuannito/php-intro-projects",
+      "web": ""
+    },
+    {
+      "title": "Sushi Counter App",
+      "desc": "Interactive web application designed to track and manage sushi consumption. Features include a persistent calendar log, competition mode to compare results with other users, and upcoming data visualization tools for detailed statistics.",
+      "technologies": ["React", "React Router", "Express", "SQLite"],
+      "github": "https://github.com/unjuannito/sushi-counter",
+      "web": "https://sushi-counter.ydns.eu/"
+    },
+    {
+      "title": "Personal Websites",
+      "desc": "Set of personal web projects including this portfolio (which uses this same data), a navigator home page, a savings calculator, and a compound interest calculator. Focused on building practical tools and improving frontend architecture and UI/UX.",
+      "technologies": ["React", "React Router"],
+      "github": "https://github.com/unjuannito/personal-websites",
+      "web": ""
+    },
+    {
+      "title": "Final Degree Project (TFG)",
+      "desc": "Final project for my Web Development Technician degree. A basic ERP system developed as an educational project, focused on learning full-stack architecture, data management, and real-world application structure.",
+      "technologies": ["PHP", "React", "MySQL"],
+      "github": "https://github.com/unjuannito/ERP",
+      "web": ""
+    }
+  ],
+  "es": [
+    {
+      "title": "Proyectos Introductorios de PHP",
+      "desc": "Colección de proyectos desarrollados durante la FP de Técnico en Desarrollo Web para aprender PHP desde cero hasta conceptos más avanzados. Incluye fundamentos, lógica backend, manejo de formularios, sesiones y operaciones CRUD básicas.",
+      "technologies": ["PHP", "MySQL"],
+      "github": "https://github.com/unjuannito/php-intro-projects",
+      "web": ""
+    },
+    {
+      "title": "Aplicación Sushi Counter",
+      "desc": "Aplicación web interactiva diseñada para gestionar y registrar el consumo de sushi. Incluye un historial persistente en calendario, un modo de competición para comparar resultados entre usuarios y una próxima sección de visualización de datos estadísticos.",
+      "technologies": ["React", "React Router", "Express", "SQLite"],
+      "github": "https://github.com/unjuannito/sushi-counter",
+      "web": "https://sushi-counter.ydns.eu/"
+    },
+    {
+      "title": "Webs Personales",
+      "desc": "Conjunto de proyectos web personales que incluyen este portfolio (que utiliza estos mismos datos), una página de inicio para el navegador, una calculadora de ahorro y una calculadora de interés compuesto. Proyectos orientados a mejorar la arquitectura frontend y la experiencia de usuario.",
+      "technologies": ["React", "React Router"],
+      "github": "https://github.com/unjuannito/personal-websites",
+      "web": ""
+    },
+    {
+      "title": "Proyecto Final de Grado (TFG)",
+      "desc": "Proyecto final de la FP de Técnico en Desarrollo Web. Consiste en un ERP básico desarrollado como proyecto educativo, enfocado en aprender arquitectura full-stack, gestión de datos y estructura de aplicaciones reales.",
+      "technologies": ["PHP", "React", "MySQL"],
+      "github": "https://github.com/unjuannito/ERP",
+      "web": ""
+    }
+  ]
 }

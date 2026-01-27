@@ -1,0 +1,45 @@
+[
+    {
+        "title": "Salesforce",
+        "skills": [
+            "Apex",
+            "Aura",
+            "LWC",
+            "SOQL",
+            "Salesforce Admin"
+        ]
+    },
+    {
+        "title": "Frontend",
+        "skills": [
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ]
+    },
+    {
+        "title": "Backend",
+        "skills": [
+            "Node.js",
+            "Express",
+            "SQLite",
+            "REST APIs",
+            "PHP",
+            "MySQL",
+            "PostgreSQL"
+        ]
+    },
+    {
+        "title": "Tools",
+        "skills": [
+            "Git",
+            "GitHub",
+            "VS Code",
+            "Vite",
+            "Agile"
+        ]
+    }
+]
