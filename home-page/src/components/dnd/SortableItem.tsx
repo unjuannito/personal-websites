@@ -36,8 +36,9 @@ export default function SortableItem({
       ref={setNodeRef}
       style={style}
       {...attributes}
+      tabIndex={-1}
       {...listeners}
-      className={`cursor-move select-none touch-none ${
+      className={`cursor-move select-none touch-none focus:outline-none ${
         dragging ? 'opacity-0' : 'opacity-100'
       } ${className}`}
     >

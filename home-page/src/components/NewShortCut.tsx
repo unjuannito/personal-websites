@@ -5,7 +5,7 @@ export default function NewShortcut({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="flex flex-col items-center justify-center p-[var(--shortcut-padding)] rounded-2xl border-2 border-dashed border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 transition-all duration-300 group cursor-pointer w-[var(--shortcut-total-width)]"
+      className="flex flex-col items-center justify-center p-[var(--shortcut-padding)] rounded-2xl border-2 border-dashed border-white/10 hover:border-white/20 focus:border-white/20 bg-white/5 hover:bg-white/10 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 group cursor-pointer w-[var(--shortcut-total-width)]"
     >
       <div className="flex-1 flex flex-col items-center justify-center gap-3">
         <div

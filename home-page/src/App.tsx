@@ -98,9 +98,16 @@ function App() {
       </div>
 
       <button
+        id="settings-button"
         type='button'
         onClick={() => setIsSettingsOpen(true)}
-        className="fixed right-[1vw] bottom-[1vw] p-2 bg-transparent"
+        onKeyDown={(e) => {
+          if (e.key === 'Tab' && !e.shiftKey) {
+            e.preventDefault();
+            document.getElementById('search-input')?.focus();
+          }
+        }}
+        className="fixed right-[1vw] bottom-[1vw] p-2 bg-transparent rounded-full hover:bg-white/10 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-200"
       >
         <img
           className="h-8 w-8 invert"

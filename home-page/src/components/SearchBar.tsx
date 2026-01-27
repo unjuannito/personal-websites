@@ -61,6 +61,12 @@ export default function SearchBar() {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Tab' && e.shiftKey) {
+      e.preventDefault();
+      document.getElementById('settings-button')?.focus();
+      return;
+    }
+
     if (e.key === 'Enter') {
       const isNewTab = e.ctrlKey;
       const isAI = e.altKey;
@@ -85,26 +91,29 @@ export default function SearchBar() {
       <button
         onClick={(e) => onIconClick(e, 'search')}
         onAuxClick={(e) => onIconClick(e, 'search')}
-        className="p-2 hover:bg-white/15 rounded-xl transition-colors duration-200"
+        tabIndex={-1}
+        className="p-2 hover:bg-white/15 rounded-xl transition-colors duration-200 focus:outline-none"
         title="Search with Search Engine (Ctrl+Click or Middle Click for new tab)"
       >
         <img src={magnifyingGlass} alt="Search" className="w-6 h-6 opacity-70 group-focus-within:opacity-100 transition-opacity invert" />
       </button>
 
       <input
+        id="search-input"
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Search or ask AI..."
-        className="flex-1 bg-transparent border-none outline-none py-4 px-2 text-lg text-white placeholder:text-white/40"
+        className="flex-1 bg-transparent border-none outline-none py-4 px-2 text-lg text-white placeholder:text-white/40 focus:outline-none"
       />
 
       {/* AI Icon (Right) */}
       <button
         onClick={(e) => onIconClick(e, 'ai')}
         onAuxClick={(e) => onIconClick(e, 'ai')}
-        className="p-2 hover:bg-white/15 rounded-xl transition-colors duration-200"
+        tabIndex={-1}
+        className="p-2 hover:bg-white/15 rounded-xl transition-colors duration-200 focus:outline-none"
         title="Search with AI (Ctrl+Click or Middle Click for new tab)"
       >
         <img src={commentsIcon} alt="AI" className="w-6 h-6 opacity-70 group-focus-within:opacity-100 transition-opacity invert" />

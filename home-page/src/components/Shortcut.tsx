@@ -62,8 +62,18 @@ export default function Shortcut({
             e.preventDefault();
           }
         }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.stopPropagation();
+            if (e.ctrlKey) {
+              e.preventDefault();
+              window.open(url, '_blank');
+            }
+            // Let the default behavior of <a> handle the navigation for Enter without Ctrl
+          }
+        }}
         onContextMenu={handleContextMenu}
-        className={`flex flex-col items-center justify-center p-[var(--shortcut-padding)] rounded-2xl hover:bg-white/15 transition-all duration-200 group
+        className={`flex flex-col items-center justify-center p-[var(--shortcut-padding)] rounded-2xl hover:bg-white/15 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-200 group
                     ${isDragging ? 'cursor-grabbing' : 'cursor-pointer'}`}
       >
         <div
